@@ -1,0 +1,24 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Data like sqlite
+*.db
+
+# iPython Notebooks 
+*.ipynb
+.ipynb_checkpoints
+
+# pytest
+.pytest_cache
+

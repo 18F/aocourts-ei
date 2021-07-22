@@ -1,0 +1,5 @@
+requirements_dev.txt
+*.ipynb
+.ipynb_checkpoints
+.env
+.venv

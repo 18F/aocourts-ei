@@ -1,0 +1,60 @@
+scalar Datetime
+
+type Query {
+    case(id: Int!): Case
+}
+
+type Mutation {
+    """
+    Sets the sealed status of the case with the given ID
+    Returns:  
+    – the modified case  
+    – or null if the case was not found
+    """
+    sealCase(caseId: Int!, sealed: Boolean): Case
+}
+
+enum CourtType{
+    district
+    appellate
+    bankruptcy
+}
+
+interface Case {
+    id: ID!
+    title: String!
+    createdAt: Datetime!
+    updatedOn: Datetime
+    docketEntries: [DocketEntry!]!
+    type: CourtType!
+    sealed: Boolean
+}
+
+type DistrictCase implements Case {
+    id: ID!
+    title: String!
+    createdAt: Datetime!
+    updatedOn: Datetime
+    docketEntries: [DocketEntry!]!
+    type: CourtType!
+    sealed: Boolean
+}
+
+type AppellateCase implements Case {
+    id: ID!
+    title: String!
+    createdAt: Datetime!
+    updatedOn: Datetime
+    docketEntries: [DocketEntry!]!
+    type: CourtType!
+    sealed: Boolean
+    originalCaseId: Int
+}
+
+type DocketEntry {
+    text: String!
+    sequenceNumber: Int!
+    dateFiled: Datetime
+    entryType: String!
+    sealed: Boolean!
+}
