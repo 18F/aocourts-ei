@@ -1,5 +1,8 @@
 name: run-api-tests-action
-on: [push]
+on:
+  push:
+    paths:
+      - api/**
 jobs:
   run-tests:
     runs-on: ubuntu-latest
