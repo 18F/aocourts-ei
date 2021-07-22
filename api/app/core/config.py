@@ -18,6 +18,13 @@ class Settings(BaseSettings):
     INITIAL_ADMIN_USER: str = "admin@example.com"
     INITIAL_ADMIN_PASSWORD: str = "secret"
 
+    @validator("DATABASE_URL", pre=True)
+    def fix_postgres_url(cls, v: str) -> str:
+        '''Fixes DATABASE_URL from Cloud.gov so sqlalchemy will accept it'''
+        if v.startswith("postgres://"):
+            return v.replace("postgres://", "postgresql://", 1)
+        return v
+
     @validator("BACKEND_CORS_ORIGINS", pre=True)
     def assemble_cors_origins(cls, v: Union[str, List[str]]) -> Union[List[str], str]:
         if isinstance(v, str) and not v.startswith("["):

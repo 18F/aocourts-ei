@@ -1,7 +1,10 @@
 from sqlalchemy.orm import Session
+from sqlalchemy import create_engine
+
 from app.crud import user, role
 from app.core.config import settings
 from app.schemas import UserInput, Role
+from app.db import Base
 
 
 def init_db(db: Session) -> None:
@@ -26,3 +29,13 @@ def init_db(db: Session) -> None:
         )
 
         initial = user.create(db, user=user_in)  # noqa: F841
+
+
+def create_tables():
+    '''Set up tables for the tests'''
+    engine = create_engine(settings.DATABASE_URL)
+    Base.metadata.create_all(engine)
+
+
+if __name__ == "__main__":
+    create_tables()

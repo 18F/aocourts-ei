@@ -9,15 +9,6 @@ from app.api.api_v1.api import api_router
 from app.docs.api_metadata import tags_metadata
 from app.graph_ql.routes import graphQL_router
 
-# from app.db.init_db import init_db
-# from app.db.database import SessionLocal
-
-# DB initiliazation will likely go in an init script
-# to add seed data once migrations are in place
-# db = SessionLocal()
-# init_db(db)
-# db.close()
-
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
