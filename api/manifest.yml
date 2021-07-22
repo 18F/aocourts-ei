@@ -1,0 +1,12 @@
+---
+applications:
+- name: ao-backend
+  random-route: true
+  buildpacks:
+    - python_buildpack
+  memory: 256M
+  env:
+    PROJECT_NAME: AOBackend
+  services:
+    - ao_sandbox
+    - ao_api_creds

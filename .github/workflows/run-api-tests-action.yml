@@ -1,0 +1,43 @@
+name: run-api-tests-action
+on:
+  push:
+    branches: [api-dev]
+    paths:
+      - api/**
+  pull_request:
+    branches: [main, api-dev]
+    paths:
+      - api/**
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        # Docker Hub image
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install Dependencies
+        working-directory: ./api
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run Test Suite
+        working-directory: ./api
+        run: pytest app/tests
+        env:
+          DATABASE_URL_TEST: "postgresql://postgres:postgres@localhost:5432/postgres"
