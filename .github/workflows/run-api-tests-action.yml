@@ -38,6 +38,6 @@ jobs:
           pip install -r requirements.txt
       - name: Run Test Suite
         working-directory: ./api
-        run: python -m pytest app/tests
+        run: pytest app/tests
         env:
           DATABASE_URL_TEST: "postgresql://postgres:postgres@localhost:5432/postgres"
